@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     // 오브젝트 연결
     private Rigidbody rb;
     private Animator animator;
+    private Vector3 moveInput;
     public Image PlayerStaminaUI;
     public Image PlayerUltUI;
     public GameObject CanUltPanel;
@@ -82,42 +83,39 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 게임매니저 카운트다운, 게임 승리,오버시 입력무시 
+        // 게임매니저 카운트다운, 게임 승리, 오버시 입력 무시 
         if (GameManager.currentState == GameState.Countdown || isVictroy || isGameOver) return;
 
         #region 플레이어 이동
         if (canMovePlayer)
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+            moveInput = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-            // 이동 방향 결정
-            Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
-
-            // 달리기
-            if (horizontalInput != 0 || verticalInput != 0)
+            if (moveInput != Vector3.zero)
             {
                 isRun = true;
 
-                // 이동 방향으로 부드럽게 회전
-                if (moveDirection != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                    transform.rotation = Quaternion.Lerp(
-                        transform.rotation,
-                        targetRotation,
-                        20f * Time.deltaTime
-                    );
-                }
+                Vector3 targetVelocity = moveInput * currentSpeed;
+                targetVelocity.y = rb.linearVelocity.y;
+                rb.linearVelocity = targetVelocity;
 
-                transform.Translate(moveDirection * currentSpeed * Time.deltaTime, Space.World);
-                animator.SetBool(isRunAnimParam, true);
+                Quaternion targetRotation = Quaternion.LookRotation(moveInput);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, dashSpeed * Time.fixedDeltaTime);
             }
             else
             {
                 isRun = false;
-                animator.SetBool(isRunAnimParam, false);
+
+                rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             }
+
+            animator.SetBool(isRunAnimParam, isRun);
+        }
+        else
+        {
+            moveInput = Vector3.zero;
         }
         #endregion
 
@@ -255,6 +253,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator iceageplayer()
     {
         canMovePlayer = false;
+        rb.linearVelocity = Vector3.zero;
         yield return new WaitForSeconds(2.0f);
         canMovePlayer = true;
         StartCoroutine(PlayerUsingUlt());
@@ -267,19 +266,15 @@ public class PlayerMovement : MonoBehaviour
         currentUltAmount = 0;
         CanUltPanel.SetActive(false);
         currentSpeed = UltSpeed;
-        // 파티클 시작(궁극기 시간동안 호출)
-        if (isPlayerUsingUlt)
-        {
-            float timer = 0f;
-            while (timer < UltTime)
-            {
-                StartDashEffect();
-                yield return new WaitForSeconds(1f);
-                timer += 1f;
-            }
-            StopDashEffect();
-            StopUltEffect();
-        }
+
+        StartDashEffect();
+        StartUltEffect();
+
+        yield return new WaitForSeconds(UltTime);
+
+        StopDashEffect();
+        StopUltEffect();
+
         // 10초 이후 궁극기종료
         Debug.Log("플레이어 궁극기 끝!");
         isPlayerUsingUlt = false;
@@ -382,22 +377,23 @@ public class PlayerMovement : MonoBehaviour
     {
         isVictroy = true;
         Debug.Log("승리함");
-        // 캐릭터 골라인 기준 y축 뒤집기
+        canMovePlayer = false;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         float currentX = transform.eulerAngles.x;
         float currentZ = transform.eulerAngles.z;
-        transform.rotation = Quaternion.Euler(currentX, 180f, currentZ);
+        transform.rotation = Quaternion.Euler(currentX, 180f, currentZ); //플레이어 z축으로 뒤집기
+
         animator.SetTrigger("isGoal");
 
-        // 스톱워치 시간 받아오기
-        GetGoalResultTime();
+        GetGoalResultTime(); // 시간 값 가져오기 
 
-        // 카메라 위치 변환(승리 시)
-        followPlayer.OnGoalReached(new Vector3(0, 23.8f, -27.5f), 4.38f);
+        followPlayer.OnGoalReached(new Vector3(0, 23.8f, -27.5f), 4.38f); //카메라 offset 값 수정   
 
-        // Goal 패널 띄우기
-        GoalUI.SetActive(isVictroy);
+        GoalUI.SetActive(true);
 
-        // 오디오 재생
         PlayVictorySound();
     }
     #endregion
