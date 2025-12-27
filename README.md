@@ -1,6 +1,6 @@
 ゲーム再生URL 
 --
-[![走れ！はるちゃん](http://img.youtube.com/vi/jojOxqP2Igk/0.jpg)](https://www.youtube.com/watch?v=jojOxqP2Igk)<br>
+[![走れ！はるちゃん](http://img.youtube.com/vi/jojOxqP2Igk/maxresdefault.jpg)](https://www.youtube.com/watch?v=jojOxqP2Igk)<br>
 
 *画像をクリックするとリンクに接続されます。<br>
 
