@@ -1,13 +1,3 @@
-ゲーム再生URL 
---
-[![走れ！はるちゃん](http://img.youtube.com/vi/jojOxqP2Igk/maxresdefault.jpg)](https://www.youtube.com/watch?v=jojOxqP2Igk)<br>
-
-*画像をクリックするとリンクに接続されます。<br>
-
-*エラーが生じた場合、以下のリンク先でお願い致します。<br>
-https://youtu.be/jojOxqP2Igk
-
-
 タイトル：走れ！はるちゃん　／　開発期間：25年08月14日　～　25年09月05日
 --
 「人間の国」と「獣の国」が共存する西暦3000年フェアリー（現在の地球）
@@ -20,5 +10,14 @@ https://youtu.be/jojOxqP2Igk
 ②障害物回避:前に進みながら回転する障害物、サイの群れなど様々な障害物を避けなければなりません。<br>
 マップは総３フェーズまで仕込まれています。各々のフェーズに入ることで障害物とモンスターの召喚フェスがどんどん早くなります。 はるちゃんを目的地まで無事に到達させると、ゲームはクリアとなります。タイムアタック形式でその結果を通じて誰がもっと早くはるちゃんを脱出させたかを争うのがこのゲームの楽しみのポイントです。
 
+
+ゲーム再生URL 
+--
+[![走れ！はるちゃん](http://img.youtube.com/vi/jojOxqP2Igk/maxresdefault.jpg)](https://www.youtube.com/watch?v=jojOxqP2Igk)<br>
+
+*画像をクリックするとリンクに接続されます。<br>
+
+*エラーが生じた場合、以下のリンク先でお願い致します。<br>
+https://youtu.be/jojOxqP2Igk
 
 
