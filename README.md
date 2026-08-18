@@ -40,10 +40,15 @@
 ゲーム再生URL 
 --
 [![走れ！はるちゃん](http://img.youtube.com/vi/jojOxqP2Igk/maxresdefault.jpg)](https://www.youtube.com/watch?v=jojOxqP2Igk)<br>
-
-*画像をクリックするとリンクに繋がります。<br>
-
-*エラーが生じた場合、以下のリンク先でお願い致します。<br>
 https://youtu.be/jojOxqP2Igk
+<br>
+<br>
+画像およびリンクをクリックするこどで、動画に接続できます。
 
+ビルドデータ▣Unity6000.0.37f1
+--
+<div style="display: flex; align-items: center; gap: 8px;">
+  <a href="https://drive.google.com/drive/folders/1ZJTxqQMoFmbinTRqVYVskCZjNjCA2uzi?usp=drive_link" target="_blank" title="구글 드라이브 폴더로 이동" style="display: flex; align-items: center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.svg" width="32" height="32" style="display: block;">
+  </a>
 
